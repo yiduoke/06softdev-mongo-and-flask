@@ -8,6 +8,7 @@ I got rid of several top layers so I could have separate documents for each post
 I just established a connection in this script
 '''
 
+from flask import Flask, render_template
 import pymongo
 import json, urllib2
 from pprint import pprint
@@ -65,3 +66,11 @@ def good_video(score_threshold, ups_threshold):
     output = collection.find({"is_video" : True, "score": {'$gt': score_threshold}, "ups": {'$gt': ups_threshold}})
     for i in output:
    		pprint(i)
+   		
+@my_app.route('/')
+def root():
+    return render_template("reddit.html")
+
+if __name__ == "__main__":
+    my_app.debug = True
+    my_app.run()
