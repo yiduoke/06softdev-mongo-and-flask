@@ -8,18 +8,21 @@ I got rid of several top layers so I could have separate documents for each post
 I just established a connection in this script
 '''
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import pymongo
 import json, urllib2
 from pprint import pprint
+
+connection = pymongo.MongoClient("homer.stuy.edu")
+connection.drop_database('keY-taoI')
+db = connection['keY-taoI']
+collection = db['r/deepFried']
 
 object = urllib2.urlopen("https://www.reddit.com/r/deepfried.json")
 string = object.read()
 d = json.loads(string)
 
-connection = pymongo.MongoClient("homer.stuy.edu")
-db = connection['keY-taoI']
-collection = db['r/deepFried']
+collection.insert(d)
 
 # deleting it every time
 # db['r/deepFried'].drop()
@@ -30,7 +33,7 @@ collection = db['r/deepFried']
 def below_score(threshold):
     output = collection.find({"score" : {'$lt' : threshold}})
     for i in output:
-   		pprint(i)
+   		pprint("hlweriewlr")
 
 def above_score(threshold):
     output = collection.find({"score" : {'$gt' : threshold}})
@@ -57,20 +60,27 @@ def above_comments(threshold):
     for i in output:
    		pprint(i)
 
-def is_video(boolean):
-    output = collection.find({"is_video" : boolean})
-    for i in output:
-   		pprint(i)
+def testingfxn():
+    return("testingfunctionprinted")
 
-def good_video(score_threshold, ups_threshold):
-    output = collection.find({"is_video" : True, "score": {'$gt': score_threshold}, "ups": {'$gt': ups_threshold}})
-    for i in output:
-   		pprint(i)
+def displayResults():
+  return "<Display Results>"
+
+
+
+
+
    		
-@my_app.route('/')
+
+app=Flask(__name__)
+
+@app.route('/')
 def root():
-    return render_template("reddit.html")
+    return render_template("reddit.html", results = displayResults())
+
+
+
 
 if __name__ == "__main__":
-    my_app.debug = True
-    my_app.run()
+    app.debug = True
+    app.run()

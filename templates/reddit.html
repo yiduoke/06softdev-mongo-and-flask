@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> Form </title>
+
+  </head>
+  <body>
+
+    <p> Please set your requirements in the drop down menu below and enter your values <br> <br> 
+    Search for posts with: <br>
+    </p>
+
+     
+
+  	<form action="/" method="get">
+	    <select name="contentType">
+        <option value="score">Score</option>
+        <option value="ups">Ups</option>
+        <!--<option value="downs">Downs</option>-->
+        <option value="num_comments">Number of Comments</option>
+      </select>
+   
+
+      <select name="compare">
+        <option value="greater">greater than</option>
+        <option value="less">less than</option>
+      </select>
+
+
+      <input type="text" name="value" value="0">
+
+      <br><br>
+
+
+       <input type="submit" value="Submit!">
+
+
+    </form>
+
+    <br><br>
+
+    Search Results:<br><br>
+  	{{results}}
+  	
+
+
+  </body>
+</html>
