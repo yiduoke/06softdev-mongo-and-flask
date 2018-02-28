@@ -12,15 +12,15 @@
 
      
 
-  	<form action="/" method="get">
-	    <select name="contentType">
+    <form action="/tada" method="post">
+      
+	    <select name ="contentType">
         <option value="score">Score</option>
         <option value="ups">Ups</option>
         <!--<option value="downs">Downs</option>-->
         <option value="num_comments">Number of Comments</option>
       </select>
    
-
       <select name="compare">
         <option value="greater">greater than</option>
         <option value="less">less than</option>
@@ -40,7 +40,10 @@
     <br><br>
 
     Search Results:<br><br>
-  	{{results}}
+    {% for result in results %}
+      {{ result.url }}
+      <br>
+    {% endfor %}
   	
 
 
